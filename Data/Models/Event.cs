@@ -10,8 +10,8 @@
         public string Location { get; set; }
         public int MaxAttendees { get; set; }
         public Status Status { get; set; }
-        public string Flyer { get; set; }
-        public string Cover { get; set; }
+        public string? Flyer { get; set; }
+        public string? Cover { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 

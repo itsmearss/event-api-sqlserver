@@ -170,3 +170,4 @@ C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug
 C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\obj\Debug\net9.0\TestProjectAnnur.sourcelink.json

@@ -5,7 +5,7 @@ namespace TestProjectAnnur.Services
 {
     public interface IEventService
     {
-        Task<IEnumerable<EventResponseDTO>> GetAllEventsAsync();
+        Task<IEnumerable<Event>> GetAllEventsAsync();
         Task<EventResponseDTO> GetEventByIdAsync(int id);
         Task<EventResponseDTO> CreateEventAsync(EventDTO eventDTO);
         Task<EventResponseDTO> UpdateEventAsync(int id, EventDTO eventDTO);

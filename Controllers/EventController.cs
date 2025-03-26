@@ -42,7 +42,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateEvent([FromBody] EventDTO eventDTO)
+        public async Task<IActionResult> CreateEvent([FromForm] EventDTO eventDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -52,7 +52,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateEvent(int id, [FromBody] EventDTO eventDTO)
+        public async Task<IActionResult> UpdateEvent(int id, [FromForm] EventDTO eventDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

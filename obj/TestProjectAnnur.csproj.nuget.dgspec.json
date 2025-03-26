@@ -82,6 +82,10 @@
               "target": "Package",
               "version": "[9.0.3, )"
             },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
             "Swashbuckle.AspNetCore.Swagger": {
               "target": "Package",
               "version": "[8.0.0, )"

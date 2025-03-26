@@ -10,15 +10,31 @@ namespace TestProjectAnnur.Services
     {
         private readonly IEventRepository _eventRepository;
         private readonly ICategoryService _categoryService;
+        private readonly IFileService _fileService;
 
-        public EventService(IEventRepository eventRepository, ICategoryService categoryService)
+        public EventService(IEventRepository eventRepository, ICategoryService categoryService, IFileService fileService)
         {
             _eventRepository = eventRepository;
             _categoryService = categoryService;
+            _fileService = fileService;
         }
 
         public async Task<EventResponseDTO> CreateEventAsync(EventDTO eventDTO)
         {
+            if(eventDTO.Flyer.Length > 1 * 1024 * 1024)
+            {
+                throw new Exception("Flyer size should not exceed 1 MB");
+            }
+
+            if (eventDTO.Flyer.Length > 1 * 1024 * 1024)
+            {
+                throw new Exception("Cover size should not exceed 1 MB");
+            }
+
+            string[] allowedFileExtentions = [".jpg", ".jpeg", ".png"];
+            string createdFlyerName = await _fileService.SaveFileAsync(eventDTO.Flyer, allowedFileExtentions);
+            string createdCoverName = await _fileService.SaveFileAsync(eventDTO.Cover, allowedFileExtentions);
+
             var eventEntity = new Event
             {
                 Title = eventDTO.Title,
@@ -29,8 +45,8 @@ namespace TestProjectAnnur.Services
                 Location = eventDTO.Location,
                 MaxAttendees = eventDTO.MaxAttendees,
                 Status = eventDTO.Status,
-                Flyer = eventDTO.Flyer,
-                Cover = eventDTO.Cover,
+                Flyer = createdFlyerName,
+                Cover = createdCoverName,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -40,13 +56,24 @@ namespace TestProjectAnnur.Services
 
         public async Task<bool> DeleteEventAsync(int id)
         {
+            var existingEvent = await _eventRepository.GetEventByIdAsync(id);
+
+            if(existingEvent == null)
+            {
+                throw new Exception($"Event dengan ID {id} tidak ditemukan");
+            }
+
+            _fileService.DeleteFile(existingEvent.Flyer);
+            _fileService.DeleteFile(existingEvent.Cover);
+
             return await _eventRepository.DeleteEventAsync(id);
         }
 
-        public async Task<IEnumerable<EventResponseDTO>> GetAllEventsAsync()
+        public async Task<IEnumerable<Event>> GetAllEventsAsync()
         {
             var events = await _eventRepository.GetAllEventsAsync();
-            return (IEnumerable<EventResponseDTO>)events.Select(MapToResponse);
+            Console.WriteLine(events.Select(MapToResponse));
+            return events;
         }
 
         public async Task<EventResponseDTO> GetEventByIdAsync(int id)
@@ -66,6 +93,36 @@ namespace TestProjectAnnur.Services
             if (existingEvent == null)
                 return null;
 
+            string oldFlyerImage = existingEvent.Flyer;
+            eventDTO.FlyerName = oldFlyerImage;
+            string oldCoverImage = existingEvent.Cover;
+            eventDTO.CoverName = oldCoverImage;
+
+            string[] allowedFileExtensions = [".jpg", ".jpeg", ".png"];
+
+            if (eventDTO.Flyer != null)
+            {
+                if(eventDTO.Flyer.Length > 1 * 1024 * 1024)
+                {
+                    throw new Exception("Flyer size should not exceed 1 MB");
+                }
+                string createdFlyerName = await _fileService.SaveFileAsync(eventDTO.Flyer, allowedFileExtensions);
+                eventDTO.FlyerName = createdFlyerName;
+                _fileService.DeleteFile(existingEvent.Flyer);
+            }
+
+            if(eventDTO.Cover != null)
+            {
+                if(eventDTO.Cover.Length > 1 * 1024 * 1024)
+                {
+                    throw new Exception("Cover size should not exceed 1 MB");
+                }
+                string createdCoverName = await _fileService.SaveFileAsync(eventDTO.Cover, allowedFileExtensions);
+                eventDTO.CoverName = createdCoverName;
+                _fileService.DeleteFile(existingEvent.Cover);
+            }
+
+
             existingEvent.Title = eventDTO.Title;
             existingEvent.Description = eventDTO.Description;
             existingEvent.CategoryId = eventDTO.CategoryId;
@@ -74,8 +131,8 @@ namespace TestProjectAnnur.Services
             existingEvent.Location = eventDTO.Location;
             existingEvent.MaxAttendees = eventDTO.MaxAttendees;
             existingEvent.Status = eventDTO.Status;
-            existingEvent.Flyer = eventDTO.Flyer;
-            existingEvent.Cover = eventDTO.Cover;
+            existingEvent.Flyer = eventDTO.FlyerName;
+            existingEvent.Cover = eventDTO.CoverName;
             existingEvent.UpdatedAt = DateTime.UtcNow;
 
             var updatedEvent = await _eventRepository.UpdateEventAsync(existingEvent);
@@ -84,7 +141,7 @@ namespace TestProjectAnnur.Services
 
         public async Task<EventResponseDTO> MapToResponse(Event eventEntity)
         {
-            var category = await _categoryService.GetCategoryByIdAsync(eventEntity.Id);
+            var category = await _categoryService.GetCategoryByIdAsync((int)eventEntity.CategoryId);
             return new EventResponseDTO
             {
                 Id = eventEntity.Id,
