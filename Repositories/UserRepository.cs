@@ -1,7 +1,6 @@
 ﻿using TestProjectAnnur.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using TestProjectAnnur.Data;
-using Microsoft.AspNetCore.Identity;
 
 namespace TestProjectAnnur.Repositories
 {

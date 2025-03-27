@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using TestProjectAnnur.Data;
+using TestProjectAnnur.Data.Models;
 using TestProjectAnnur.Repositories;
 using TestProjectAnnur.Services;
 
@@ -46,6 +48,7 @@ builder.Services.AddSwaggerGen(options =>
         }
     });
 });
+
 // Konfigurasi JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var key = Encoding.ASCII.GetBytes(jwtSettings["Secret"]);
@@ -54,6 +57,7 @@ builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 })
 .AddJwtBearer(options =>
 {
@@ -86,6 +90,9 @@ builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IFileService, FileService>();
+
+builder.Services.AddScoped<IRegisterEventRepository, RegisterEventRepository>();
+builder.Services.AddScoped<IRegisterEventService, RegisterEventService>();
 
 var app = builder.Build();
 

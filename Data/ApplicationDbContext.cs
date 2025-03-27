@@ -13,7 +13,6 @@ namespace TestProjectAnnur.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<RegisterEvent> RegisterEvents { get; set; }
-        public DbSet<Certificate> Certificates { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -174,9 +173,29 @@ namespace TestProjectAnnur.Data
                 .Property(e => e.CreatedAt)
                 .IsRequired();
 
+            modelBuilder.Entity<Event>()
+                .HasMany(e => e.RegisterEvents)
+                .WithOne(e => e.Event)
+                .HasForeignKey(e => e.EventId)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.RegisterEvents)
+                .WithOne(e => e.User)
+                .HasForeignKey(e => e.UserId)
+                .IsRequired();
+
             // RegisterEvent
             modelBuilder.Entity<RegisterEvent>()
                 .HasKey(re => re.Id);
+
+            modelBuilder.Entity<RegisterEvent>()
+                .Property(re => re.EventId)
+                .IsRequired();
+
+            modelBuilder.Entity<RegisterEvent>()
+                .Property(re => re.UserId)
+                .IsRequired();
 
             modelBuilder.Entity<RegisterEvent>()
                 .Property(re => re.IsAttend)
@@ -186,24 +205,6 @@ namespace TestProjectAnnur.Data
                 .Property(re => re.CreatedAt)
                 .IsRequired();
 
-            // One to one relations between register event and certificate
-            modelBuilder.Entity<RegisterEvent>()
-                .HasOne(re => re.Certificate)
-                .WithOne(re => re.RegisterEvent)
-                .HasForeignKey<Certificate>(c => c.RegisterEventId);
-
-            // Certificate
-            modelBuilder.Entity<Certificate>()
-                .HasKey(c => c.Id);
-
-            modelBuilder.Entity<Certificate>()
-                .Property(c => c.File)
-                .HasMaxLength(255)
-                .IsRequired();
-
-            modelBuilder.Entity<Certificate>()
-                .Property(c => c.CreatedAt)
-                .IsRequired();
         }
     }
 }

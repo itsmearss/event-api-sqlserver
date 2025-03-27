@@ -6,7 +6,8 @@ using TestProjectAnnur.Services;
 namespace TestProjectAnnur.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/user")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -17,6 +18,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _userService.GetAllUsersAsync();
@@ -24,6 +26,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUserById(int id)
         {
             var userEntity = await _userService.GetUserByIdAsync(id);
@@ -35,6 +38,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpGet("{username}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUserByUsername(string username)
         {
             var userEntity = await _userService.GetUserByUsernameAsync(username);
@@ -46,6 +50,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateUser([FromBody] UserDTO userDTO)
         {
             if (!ModelState.IsValid)
@@ -56,6 +61,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateUser(int id, [FromBody] UserDTO userDTO)
         {
             if (!ModelState.IsValid)
@@ -70,6 +76,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(int id)
         {
             var deletedUser = await _userService.DeleteUserAsync(id);

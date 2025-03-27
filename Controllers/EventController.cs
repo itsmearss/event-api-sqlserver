@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TestProjectAnnur.Data.DTOs;
 using TestProjectAnnur.Services;
 
@@ -6,7 +7,8 @@ using TestProjectAnnur.Services;
 namespace TestProjectAnnur.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/event")]
+    [Authorize]
     public class EventController : ControllerBase
     {
         private readonly IEventService _eventService;
@@ -17,6 +19,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllEvents()
         {
             try
@@ -31,6 +34,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetEventById(int id)
         {
             var eventEntity = await _eventService.GetEventByIdAsync(id);
@@ -42,6 +46,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateEvent([FromForm] EventDTO eventDTO)
         {
             if (!ModelState.IsValid)
@@ -52,6 +57,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateEvent(int id, [FromForm] EventDTO eventDTO)
         {
             if (!ModelState.IsValid)
@@ -66,14 +72,15 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteEvent(int id)
         {
-            var deleteCategory = await _eventService.DeleteEventAsync(id);
+            var deleteEvent = await _eventService.DeleteEventAsync(id);
 
-            if (!deleteCategory)
+            if (!deleteEvent)
                 return NotFound($"Event dengan ID {id} tidak ditemukan");
 
-            return Ok(deleteCategory);
+            return Ok(deleteEvent);
         }
     }
 }

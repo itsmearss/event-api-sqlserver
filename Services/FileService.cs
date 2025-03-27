@@ -1,8 +1,15 @@
 ﻿
 namespace TestProjectAnnur.Services
 {
-    public class FileService(IWebHostEnvironment environment) : IFileService
+    public class FileService : IFileService
     {
+        private readonly IWebHostEnvironment _environment;
+
+        public FileService(IWebHostEnvironment environment)
+        {
+            _environment = environment;
+        }
+
         public void DeleteFile(string fileNameWithExtension)
         {
             // Check param fileNameWithExtension
@@ -12,7 +19,7 @@ namespace TestProjectAnnur.Services
             }
 
             // Get path
-            var contentPath = environment.ContentRootPath;
+            var contentPath = _environment.ContentRootPath;
 
             // Image path
             var path = Path.Combine(contentPath, $"Uploads", fileNameWithExtension);
@@ -31,7 +38,7 @@ namespace TestProjectAnnur.Services
                 throw new ArgumentNullException(nameof(imageFile));
             }
 
-            var contentPath = environment.ContentRootPath;
+            var contentPath = _environment.ContentRootPath;
             var path = Path.Combine(contentPath, "Uploads");
 
             if (!Directory.Exists(path))

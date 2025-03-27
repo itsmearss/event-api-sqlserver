@@ -12,8 +12,8 @@ using TestProjectAnnur.Data;
 namespace TestProjectAnnur.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250325040841_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250327074533_Update5")]
+    partial class Update5
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,37 +47,6 @@ namespace TestProjectAnnur.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("TestProjectAnnur.Data.Models.Certificate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("File")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<int?>("RegisterEventId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RegisterEventId")
-                        .IsUnique()
-                        .HasFilter("[RegisterEventId] IS NOT NULL");
-
-                    b.ToTable("Certificates");
                 });
 
             modelBuilder.Entity("TestProjectAnnur.Data.Models.Event", b =>
@@ -137,7 +106,7 @@ namespace TestProjectAnnur.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Event");
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("TestProjectAnnur.Data.Models.RegisterEvent", b =>
@@ -148,14 +117,17 @@ namespace TestProjectAnnur.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Certificate")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("EventId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsAttend")
-                        .HasColumnType("bit");
+                    b.Property<int>("IsAttend")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -288,15 +260,6 @@ namespace TestProjectAnnur.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TestProjectAnnur.Data.Models.Certificate", b =>
-                {
-                    b.HasOne("TestProjectAnnur.Data.Models.RegisterEvent", "RegisterEvent")
-                        .WithOne("Certificate")
-                        .HasForeignKey("TestProjectAnnur.Data.Models.Certificate", "RegisterEventId");
-
-                    b.Navigation("RegisterEvent");
-                });
-
             modelBuilder.Entity("TestProjectAnnur.Data.Models.Event", b =>
                 {
                     b.HasOne("TestProjectAnnur.Data.Models.Category", "Category")
@@ -354,11 +317,6 @@ namespace TestProjectAnnur.Migrations
             modelBuilder.Entity("TestProjectAnnur.Data.Models.Event", b =>
                 {
                     b.Navigation("RegisterEvents");
-                });
-
-            modelBuilder.Entity("TestProjectAnnur.Data.Models.RegisterEvent", b =>
-                {
-                    b.Navigation("Certificate");
                 });
 
             modelBuilder.Entity("TestProjectAnnur.Data.Models.User", b =>

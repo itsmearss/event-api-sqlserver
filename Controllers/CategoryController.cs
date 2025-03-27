@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TestProjectAnnur.Data.DTOs;
 using TestProjectAnnur.Services;
 
 namespace TestProjectAnnur.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/category")]
+    [Authorize]
     public class CategoryController : ControllerBase 
     {
         private readonly ICategoryService _categoryService;
@@ -16,6 +18,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllCategories()
         {
             try
@@ -30,6 +33,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetCategoryById(int id)
         {
             var category = await _categoryService.GetCategoryByIdAsync(id);
@@ -41,6 +45,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateCategory([FromBody] CategoryDTO categoryDTO)
         {
             if (!ModelState.IsValid)
@@ -51,6 +56,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateCategory(int id, [FromBody] CategoryDTO categoryDTO)
         {
             if (!ModelState.IsValid)
@@ -65,6 +71,7 @@ namespace TestProjectAnnur.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             var deleteCategory = await _categoryService.DeleteCategoryAsync(id);

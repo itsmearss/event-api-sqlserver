@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TestProjectAnnur.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -61,7 +61,7 @@ namespace TestProjectAnnur.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Event",
+                name: "Events",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -81,9 +81,9 @@ namespace TestProjectAnnur.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Event", x => x.Id);
+                    table.PrimaryKey("PK_Events", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Event_Categories_CategoryId",
+                        name: "FK_Events_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
@@ -125,6 +125,7 @@ namespace TestProjectAnnur.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: false),
                     IsAttend = table.Column<bool>(type: "bit", nullable: false),
+                    Certificate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -132,9 +133,9 @@ namespace TestProjectAnnur.Migrations
                 {
                     table.PrimaryKey("PK_RegisterEvents", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RegisterEvents_Event_EventId",
+                        name: "FK_RegisterEvents_Events_EventId",
                         column: x => x.EventId,
-                        principalTable: "Event",
+                        principalTable: "Events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -143,27 +144,6 @@ namespace TestProjectAnnur.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Certificates",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    File = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RegisterEventId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Certificates", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Certificates_RegisterEvents_RegisterEventId",
-                        column: x => x.RegisterEventId,
-                        principalTable: "RegisterEvents",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -187,15 +167,8 @@ namespace TestProjectAnnur.Migrations
                 values: new object[] { 1, 3, 1 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Certificates_RegisterEventId",
-                table: "Certificates",
-                column: "RegisterEventId",
-                unique: true,
-                filter: "[RegisterEventId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Event_CategoryId",
-                table: "Event",
+                name: "IX_Events_CategoryId",
+                table: "Events",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
@@ -223,19 +196,16 @@ namespace TestProjectAnnur.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Certificates");
+                name: "RegisterEvents");
 
             migrationBuilder.DropTable(
                 name: "UserRoles");
 
             migrationBuilder.DropTable(
-                name: "RegisterEvents");
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Roles");
-
-            migrationBuilder.DropTable(
-                name: "Event");
 
             migrationBuilder.DropTable(
                 name: "Users");

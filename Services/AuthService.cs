@@ -28,7 +28,6 @@ namespace TestProjectAnnur.Services
         public async Task<AuthResponseDTO> LoginAsync(LoginDTO loginDTO)
         {
             var user = await _userRepository.GetUserByUsernameAsync(loginDTO.Username);
-            Console.WriteLine(user.Username);
 
             if (user == null)
                 throw new Exception("Username dan Password salah");
@@ -105,6 +104,7 @@ namespace TestProjectAnnur.Services
             return tokenHandler.WriteToken(token);
 
         }
+
 
         private bool VerifyPassword(string password, string storedHash) => _userService.HashPassword(password) == storedHash;
     }
