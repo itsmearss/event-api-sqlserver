@@ -12,8 +12,8 @@ using TestProjectAnnur.Data;
 namespace TestProjectAnnur.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250327053002_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250331092713_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -126,8 +126,8 @@ namespace TestProjectAnnur.Migrations
                     b.Property<int>("EventId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsAttend")
-                        .HasColumnType("bit");
+                    b.Property<int>("IsAttend")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
