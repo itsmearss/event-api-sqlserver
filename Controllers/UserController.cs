@@ -37,7 +37,7 @@ namespace TestProjectAnnur.Controllers
             return Ok(userEntity);
         }
 
-        [HttpGet("{username}")]
+        [HttpGet("getByUsername/{username}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUserByUsername(string username)
         {

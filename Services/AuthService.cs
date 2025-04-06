@@ -37,11 +37,17 @@ namespace TestProjectAnnur.Services
 
             var token = await GenerateJwtToken(user);
 
+            string role = await _context.UserRoles
+                .Where(ur => ur.UserId == user.Id)
+                .Select(ur => ur.Role.Name)
+                .FirstOrDefaultAsync();
+
             return new AuthResponseDTO
             {
                 UserId = user.Id,
                 Username = user.Username,
                 Fullname = user.Fullname,
+                Role = role,
                 Token = token
             };
         }
@@ -68,8 +74,7 @@ namespace TestProjectAnnur.Services
             {
                 UserId = createdUser.Id,
                 Username = createdUser.Username,
-                Fullname = createdUser.Fullname,
-                Token = token
+                Fullname = createdUser.Fullname
             };
         }
 

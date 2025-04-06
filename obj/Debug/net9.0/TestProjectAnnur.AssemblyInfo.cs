@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TestProjectAnnur")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ccc51d2efcc7303946e3c9018d9348f041b0e46e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c90d367867507ffe51ba7ed0bcc3bd8ba76edb9f")]
 [assembly: System.Reflection.AssemblyProductAttribute("TestProjectAnnur")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TestProjectAnnur")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

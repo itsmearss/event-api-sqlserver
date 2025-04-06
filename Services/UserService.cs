@@ -3,16 +3,19 @@ using TestProjectAnnur.Data.Models;
 using TestProjectAnnur.Repositories;
 using System.Security.Cryptography;
 using System.Text;
+using TestProjectAnnur.Data;
 
 namespace TestProjectAnnur.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly ApplicationDbContext _context;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, ApplicationDbContext context)
         {
             _userRepository = userRepository;
+            _context = context;
         }
 
         public async Task<UserResponseDTO> CreateUserAsync(UserDTO userDto)
@@ -75,7 +78,10 @@ namespace TestProjectAnnur.Services
 
             existingUser.Username = userDto.Username;
             existingUser.Fullname = userDto.Fullname;
-            existingUser.Password = HashPassword(userDto.Password);
+            if (userDto.Password != null)
+            {
+                existingUser.Password = HashPassword(userDto.Password);
+            }
             existingUser.UpdatedAt = DateTime.UtcNow;
 
             var updatedUser = await _userRepository.UpdateUserAsync(existingUser);
@@ -84,11 +90,17 @@ namespace TestProjectAnnur.Services
 
         private UserResponseDTO MapToResponseDTO(User user)
         {
+            int role = _context.UserRoles
+                .Where(ur => ur.Id == user.Id)
+                .Select(ur => ur.Role.Id)
+                .FirstOrDefault();
+
             return new UserResponseDTO
             {
                 Id = user.Id,
                 Username = user.Username,
                 Fullname = user.Fullname,
+                RoleId = role,
                 CreatedAt = user.CreatedAt,
                 UpdatedAt = user.UpdatedAt
             };
