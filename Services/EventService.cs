@@ -141,7 +141,6 @@ namespace TestProjectAnnur.Services
 
         public async Task<EventResponseDTO> MapToResponse(Event eventEntity)
         {
-            var category = await _categoryService.GetCategoryByIdAsync((int)eventEntity.CategoryId);
             return new EventResponseDTO
             {
                 Id = eventEntity.Id,
@@ -149,7 +148,7 @@ namespace TestProjectAnnur.Services
                 Description = eventEntity.Description,
                 StartTime = eventEntity.StartTime,
                 EndTime = eventEntity.EndTime,
-                Category = category.Name,
+                CategoryId = eventEntity.CategoryId,
                 Location = eventEntity.Location,
                 MaxAttendees = eventEntity.MaxAttendees,
                 Status = eventEntity.Status,

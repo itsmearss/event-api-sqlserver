@@ -65,7 +65,6 @@ namespace TestProjectAnnur.Repositories
 
             existingUser.Username = userEntity.Username;
             existingUser.Fullname = userEntity.Fullname;
-            existingUser.Password = userEntity.Password;
             existingUser.UpdatedAt = DateTime.UtcNow;
 
             _context.Users.Update(existingUser);
