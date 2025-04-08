@@ -11,12 +11,14 @@ namespace TestProjectAnnur.Services
         private readonly IEventRepository _eventRepository;
         private readonly ICategoryService _categoryService;
         private readonly IFileService _fileService;
+        private readonly ApplicationDbContext _context;
 
-        public EventService(IEventRepository eventRepository, ICategoryService categoryService, IFileService fileService)
+        public EventService(IEventRepository eventRepository, ICategoryService categoryService, IFileService fileService, ApplicationDbContext context)
         {
             _eventRepository = eventRepository;
             _categoryService = categoryService;
             _fileService = fileService;
+            _context = context;
         }
 
         public async Task<EventResponseDTO> CreateEventAsync(EventDTO eventDTO)
