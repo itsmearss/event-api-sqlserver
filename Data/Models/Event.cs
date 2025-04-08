@@ -5,8 +5,8 @@
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateOnly Date { get; set; }
+        public TimeSpan Time { get; set; }
         public string Location { get; set; }
         public int MaxAttendees { get; set; }
         public Status Status { get; set; }

@@ -139,11 +139,11 @@ namespace TestProjectAnnur.Data
                 .IsRequired();
 
             modelBuilder.Entity<Event>()
-                .Property(e => e.StartTime)
+                .Property(e => e.Date)
                 .IsRequired();
 
             modelBuilder.Entity<Event>()
-                .Property(e => e.EndTime)
+                .Property(e => e.Time)
                 .IsRequired();
 
             modelBuilder.Entity<Event>()

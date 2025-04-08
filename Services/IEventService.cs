@@ -10,5 +10,6 @@ namespace TestProjectAnnur.Services
         Task<EventResponseDTO> CreateEventAsync(EventDTO eventDTO);
         Task<EventResponseDTO> UpdateEventAsync(int id, EventDTO eventDTO);
         Task<bool> DeleteEventAsync(int id);
+        Task<List<ExportEvent>> GetDataExportEvent();
     }
 }

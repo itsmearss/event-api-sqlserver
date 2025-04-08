@@ -12,8 +12,8 @@ using TestProjectAnnur.Data;
 namespace TestProjectAnnur.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250331092713_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20250408020237_UpdateEventTable")]
+    partial class UpdateEventTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,12 +68,12 @@ namespace TestProjectAnnur.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Flyer")
                         .IsRequired()
@@ -88,11 +88,11 @@ namespace TestProjectAnnur.Migrations
                     b.Property<int>("MaxAttendees")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<TimeSpan>("Time")
+                        .HasColumnType("time");
 
                     b.Property<string>("Title")
                         .IsRequired()

@@ -14,7 +14,7 @@
         public string Username { get; set; }
         public string Fullname { get; set; }
         public int RoleId { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
     }
 }

@@ -53,8 +53,8 @@ namespace TestProjectAnnur.Repositories
 
             existingEvent.Title = eventEntity.Title;
             existingEvent.Description = eventEntity.Description;
-            existingEvent.StartTime = eventEntity.StartTime;
-            existingEvent.EndTime = eventEntity.EndTime;
+            existingEvent.Date = eventEntity.Date;
+            existingEvent.Time = eventEntity.Time;
             existingEvent.Location = eventEntity.Location;
             existingEvent.CategoryId = eventEntity.CategoryId;
             existingEvent.MaxAttendees = eventEntity.MaxAttendees;

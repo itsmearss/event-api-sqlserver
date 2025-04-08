@@ -161,9 +161,6 @@ C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug
 C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
-C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
-C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
@@ -344,3 +341,9 @@ C:\Users\ARS\Documents\Code\.NETCore\event-api-sqlserver\obj\Debug\net9.0\refint
 C:\Users\ARS\Documents\Code\.NETCore\event-api-sqlserver\obj\Debug\net9.0\TestProjectAnnur.pdb
 C:\Users\ARS\Documents\Code\.NETCore\event-api-sqlserver\obj\Debug\net9.0\TestProjectAnnur.genruntimeconfig.cache
 C:\Users\ARS\Documents\Code\.NETCore\event-api-sqlserver\obj\Debug\net9.0\ref\TestProjectAnnur.dll
+C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\EPPlus.dll
+C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\EPPlus.Interfaces.dll
+C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\EPPlus.System.Drawing.dll
+C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\runtimes\win\lib\net7.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\Annur.riyadhus\source\repos\TestProjectAnnur\TestProjectAnnur\bin\Debug\net9.0\runtimes\win\lib\net7.0\System.Drawing.Common.dll

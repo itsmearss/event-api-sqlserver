@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ARS\\Documents\\Code\\.NETCore\\event-api-sqlserver\\TestProjectAnnur.csproj": {}
+    "C:\\Users\\Annur.riyadhus\\source\\repos\\TestProjectAnnur\\TestProjectAnnur\\TestProjectAnnur.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ARS\\Documents\\Code\\.NETCore\\event-api-sqlserver\\TestProjectAnnur.csproj": {
+    "C:\\Users\\Annur.riyadhus\\source\\repos\\TestProjectAnnur\\TestProjectAnnur\\TestProjectAnnur.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ARS\\Documents\\Code\\.NETCore\\event-api-sqlserver\\TestProjectAnnur.csproj",
+        "projectUniqueName": "C:\\Users\\Annur.riyadhus\\source\\repos\\TestProjectAnnur\\TestProjectAnnur\\TestProjectAnnur.csproj",
         "projectName": "TestProjectAnnur",
-        "projectPath": "C:\\Users\\ARS\\Documents\\Code\\.NETCore\\event-api-sqlserver\\TestProjectAnnur.csproj",
-        "packagesPath": "C:\\Users\\ARS\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ARS\\Documents\\Code\\.NETCore\\event-api-sqlserver\\obj\\",
+        "projectPath": "C:\\Users\\Annur.riyadhus\\source\\repos\\TestProjectAnnur\\TestProjectAnnur\\TestProjectAnnur.csproj",
+        "packagesPath": "C:\\Users\\Annur.riyadhus\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Annur.riyadhus\\source\\repos\\TestProjectAnnur\\TestProjectAnnur\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ARS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Annur.riyadhus\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -50,6 +50,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "EPPlus": {
+              "target": "Package",
+              "version": "[7.2.1, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[9.0.3, )"

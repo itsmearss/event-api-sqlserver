@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml;
 using TestProjectAnnur.Data.DTOs;
 using TestProjectAnnur.Services;
 
@@ -81,6 +82,40 @@ namespace TestProjectAnnur.Controllers
                 return NotFound($"Event dengan ID {id} tidak ditemukan");
 
             return Ok(deleteEvent);
+        }
+
+        [HttpGet("get-export-event")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetExportEvent()
+        {
+            var stream = new MemoryStream();
+            try
+            {
+                var data = await _eventService.GetDataExportEvent();
+                if (!data.Any())
+                {
+                    return new EmptyResult();
+                }
+
+                using (var package = new ExcelPackage(stream))
+                {
+                    package.Workbook.Properties.Author = "Annur";
+                    package.Workbook.Properties.Company = "PT. Tah Sung Hung";
+                    package.Workbook.Properties.Title = "Event Management";
+                    var ws = package.Workbook.Worksheets.Add("1");
+                    ws.Cells.LoadFromCollection(data);
+                    await package.SaveAsync();
+                }
+                stream.Position = 0;
+                string excelName = "$download.xlsx";
+                return File(stream, "application/xlsx", excelName);
+            }
+            catch (Exception ex)
+            {
+                var message = ex.Message;
+                var inex = ex.InnerException?.Message ?? "⚠";
+                return StatusCode(500, $"Internal server error: {message} {inex}");
+            }
         }
     }
 }

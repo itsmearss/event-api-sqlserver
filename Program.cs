@@ -109,6 +109,11 @@ app.UseCors(builder => builder
 app.UseHttpsRedirection();
 app.UseStaticFiles(new StaticFileOptions
 {
+    OnPrepareResponse = context =>
+    {
+        context.Context.Response.Headers["Access-Control-Allow-Origin"] = "*";
+    },
+
     FileProvider = new PhysicalFileProvider(
            Path.Combine(builder.Environment.ContentRootPath, "Uploads")),
     RequestPath = "/Resources"

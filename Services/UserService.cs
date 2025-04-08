@@ -4,6 +4,7 @@ using TestProjectAnnur.Repositories;
 using System.Security.Cryptography;
 using System.Text;
 using TestProjectAnnur.Data;
+using System.Data;
 
 namespace TestProjectAnnur.Services
 {
@@ -88,10 +89,48 @@ namespace TestProjectAnnur.Services
             return MapToResponseDTO(updatedUser);
         }
 
+        public async Task<SaveResponse> ProcessUserImport(List<UserDTO> excelData)
+        {
+            int baris = 0;
+            DateTime currDate = DateTime.Now;
+            using var transac = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                foreach (var item in excelData)
+                {
+                    var user = new User
+                    {
+                        Username = item.Username,
+                        Fullname = item.Fullname,
+                        Password = HashPassword(item.Password),
+                        CreatedAt = currDate,
+                    };
+                    _context.Users.Add(user);
+                    await _context.SaveChangesAsync();
+
+                    var userRole = new UserRole
+                    {
+                        UserId = user.Id,
+                        RoleId = item.RoleId,
+                    };
+                    _context.UserRoles.Add(userRole);
+                    await _context.SaveChangesAsync();
+                }
+                await transac.CommitAsync();
+                return new SaveResponse(true, "Uploaded Successfully");
+            } catch (Exception ex)
+            {
+                await transac.RollbackAsync();
+                var message = ex.Message;
+                var inex = ex.InnerException?.Message ?? "⚠";
+                throw new Exception(message + " | " + inex + " - Error on your data at row " + baris);
+            }
+        } 
+
         private UserResponseDTO MapToResponseDTO(User user)
         {
             int role = _context.UserRoles
-                .Where(ur => ur.Id == user.Id)
+                .Where(ur => ur.UserId == user.Id)
                 .Select(ur => ur.Role.Id)
                 .FirstOrDefault();
 

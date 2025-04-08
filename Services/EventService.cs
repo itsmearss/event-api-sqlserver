@@ -40,8 +40,8 @@ namespace TestProjectAnnur.Services
                 Title = eventDTO.Title,
                 Description = eventDTO.Description,
                 CategoryId = eventDTO.CategoryId,
-                StartTime = eventDTO.StartTime,
-                EndTime = eventDTO.EndTime,
+                Date = eventDTO.Date,
+                Time = eventDTO.Time,
                 Location = eventDTO.Location,
                 MaxAttendees = eventDTO.MaxAttendees,
                 Status = eventDTO.Status,
@@ -126,8 +126,8 @@ namespace TestProjectAnnur.Services
             existingEvent.Title = eventDTO.Title;
             existingEvent.Description = eventDTO.Description;
             existingEvent.CategoryId = eventDTO.CategoryId;
-            existingEvent.StartTime = eventDTO.StartTime;
-            existingEvent.EndTime = eventDTO.EndTime;
+            existingEvent.Date = eventDTO.Date;
+            existingEvent.Time = eventDTO.Time;
             existingEvent.Location = eventDTO.Location;
             existingEvent.MaxAttendees = eventDTO.MaxAttendees;
             existingEvent.Status = eventDTO.Status;
@@ -139,6 +139,30 @@ namespace TestProjectAnnur.Services
             return await MapToResponse(updatedEvent);
         }
 
+        public async Task<List<ExportEvent>> GetDataExportEvent()
+        {
+            var events = await _eventRepository.GetAllEventsAsync();
+
+            var data = events.Select(e => new ExportEvent
+            {
+                Id = e.Id,
+                Title = e.Title,
+                Description = e.Description,
+                CategoryId = e.CategoryId,
+                Date = e.Date,
+                Time = e.Time,
+                Location = e.Location,
+                MaxAttendees = e.MaxAttendees,
+                Status = e.Status,
+                Flyer = e.Flyer,
+                Cover = e.Cover,
+                CreatedAt = e.CreatedAt,
+                UpdatedAt = e.UpdatedAt
+            }).ToList();
+
+            return data;
+        }
+
         public async Task<EventResponseDTO> MapToResponse(Event eventEntity)
         {
             return new EventResponseDTO
@@ -146,8 +170,8 @@ namespace TestProjectAnnur.Services
                 Id = eventEntity.Id,
                 Title = eventEntity.Title,
                 Description = eventEntity.Description,
-                StartTime = eventEntity.StartTime,
-                EndTime = eventEntity.EndTime,
+                Date = eventEntity.Date,
+                Time = eventEntity.Time,
                 CategoryId = eventEntity.CategoryId,
                 Location = eventEntity.Location,
                 MaxAttendees = eventEntity.MaxAttendees,
