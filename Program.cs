@@ -90,6 +90,8 @@ builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddScoped<IFileService, FileService>();
+builder.Services.AddScoped<DataAccess>();
+builder.Services.AddScoped<ProductionScheduleService>();
 
 builder.Services.AddScoped<IRegisterEventRepository, RegisterEventRepository>();
 builder.Services.AddScoped<IRegisterEventService, RegisterEventService>();

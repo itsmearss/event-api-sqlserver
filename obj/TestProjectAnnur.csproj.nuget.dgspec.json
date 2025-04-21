@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Annur.riyadhus\\source\\repos\\TestProjectAnnur\\TestProjectAnnur\\TestProjectAnnur.csproj": {}
+    "C:\\Users\\ARS\\Documents\\Code\\.NETCore\\event-api-sqlserver\\TestProjectAnnur.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Annur.riyadhus\\source\\repos\\TestProjectAnnur\\TestProjectAnnur\\TestProjectAnnur.csproj": {
+    "C:\\Users\\ARS\\Documents\\Code\\.NETCore\\event-api-sqlserver\\TestProjectAnnur.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Annur.riyadhus\\source\\repos\\TestProjectAnnur\\TestProjectAnnur\\TestProjectAnnur.csproj",
+        "projectUniqueName": "C:\\Users\\ARS\\Documents\\Code\\.NETCore\\event-api-sqlserver\\TestProjectAnnur.csproj",
         "projectName": "TestProjectAnnur",
-        "projectPath": "C:\\Users\\Annur.riyadhus\\source\\repos\\TestProjectAnnur\\TestProjectAnnur\\TestProjectAnnur.csproj",
-        "packagesPath": "C:\\Users\\Annur.riyadhus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Annur.riyadhus\\source\\repos\\TestProjectAnnur\\TestProjectAnnur\\obj\\",
+        "projectPath": "C:\\Users\\ARS\\Documents\\Code\\.NETCore\\event-api-sqlserver\\TestProjectAnnur.csproj",
+        "packagesPath": "C:\\Users\\ARS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ARS\\Documents\\Code\\.NETCore\\event-api-sqlserver\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Annur.riyadhus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ARS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

@@ -13,6 +13,8 @@ namespace TestProjectAnnur.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<RegisterEvent> RegisterEvents { get; set; }
+        public DbSet<Z_Production_Schedule> Z_Production_Schedule { get; set; }
+        public DbSet<A_T_NonWorking_Date> A_T_NonWorking_Date { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -205,6 +207,37 @@ namespace TestProjectAnnur.Data
                 .Property(re => re.CreatedAt)
                 .IsRequired();
 
+            modelBuilder.Entity<Z_Production_Schedule>()
+                .HasKey(x => new { x.Factory_ID, x.PO_No, x.Batch_No });
+            modelBuilder.Entity<Z_Production_Schedule>()
+                .Property(x => x.Plan_Qty).HasPrecision(20, 5);
+            modelBuilder.Entity<Z_Production_Schedule>()
+                .Property(x => x.Pairing).HasPrecision(20, 5);
+            modelBuilder.Entity<Z_Production_Schedule>()
+                .Property(x => x.ST_Bal).HasPrecision(20, 5);
+            modelBuilder.Entity<Z_Production_Schedule>()
+                .Property(x => x.ST_EOLR_Target).HasPrecision(20, 5);
+            modelBuilder.Entity<Z_Production_Schedule>()
+                .Property(x => x.SF_Bal).HasPrecision(20, 5);
+            modelBuilder.Entity<Z_Production_Schedule>()
+                .Property(x => x.SF_EOLR_Target).HasPrecision(20, 5);
+            modelBuilder.Entity<Z_Production_Schedule>()
+                .Property(x => x.AS_Bal).HasPrecision(20, 5);
+            modelBuilder.Entity<Z_Production_Schedule>()
+                .Property(x => x.AS_EOLR_Target).HasPrecision(20, 5);
+            modelBuilder.Entity<Z_Production_Schedule>()
+                .Property(x => x.ACC_GR_QTY).HasPrecision(20, 5);
+            modelBuilder.Entity<Z_Production_Schedule>()
+                .Property(x => x.SHIP_QTY).HasPrecision(20, 5);
+            modelBuilder.Entity<Z_Production_Schedule>()
+                .Property(x => x.FA_sequence).HasPrecision(20, 5);
+            modelBuilder.Entity<Z_Production_Schedule>()
+                .Property(x => x.UA_sequence).HasPrecision(20, 5);
+            modelBuilder.Entity<Z_Production_Schedule>()
+                .Property(x => x.BA_sequence).HasPrecision(20, 5);
+
+            modelBuilder.Entity<A_T_NonWorking_Date>()
+                .HasKey(x => x.ID);
         }
     }
 }
